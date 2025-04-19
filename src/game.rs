@@ -1,11 +1,22 @@
 // Main game logic, from game state to
 // Main logic like research trees and others
 
-#[derive(Debug, Clone, Copy)]
-pub struct Game {}
+use std::io::stdout;
+
+#[derive(Debug, Clone, Copy, Default)]
+pub enum GameState {
+    Closing,
+    #[default]
+    Running,
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+pub struct Game {
+     pub state: GameState 
+}
 
 impl Game {
     pub fn new() -> Self {
-        Self {  }
+        Self { state: GameState::Running }
     }
 }

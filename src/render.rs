@@ -33,6 +33,6 @@ impl Render
 
     pub fn render(mut self) {
         // TODO start on rendering
-        self.terminal.draw(|frame| ui::draw(frame));
+        drop(self.terminal.draw(ui::draw));
     }
 }
