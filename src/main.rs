@@ -8,11 +8,12 @@ use render::Render;
 pub mod render;
 pub mod game;
 pub mod input;
+pub mod ui;
 
 fn main() {
     let game = Game::new();
     loop {
-        let render = Render::new(game);
+        Render::new(game).render();
         handle_inputs(game);
     }
 }
