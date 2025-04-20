@@ -14,6 +14,9 @@ pub fn handle_inputs(game: &mut Game) {
             KeyCode::Esc => {
                 game.state = GameState::Closing;
             }
+            KeyCode::Char('n') => {
+                game.data.turn();
+            }
             _ => ()
         }
     }
