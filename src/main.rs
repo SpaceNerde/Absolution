@@ -10,11 +10,12 @@ pub mod game;
 pub mod input;
 pub mod ui;
 pub mod widgets;
+pub mod data;
 
 fn main() {
     let mut game = Game::new();
     loop {
-        Render::new(game).render();
+        Render::new(game.clone()).render();
         handle_inputs(&mut game);
         match game.state {
             GameState::Closing => {
