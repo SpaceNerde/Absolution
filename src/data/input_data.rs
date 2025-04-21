@@ -5,11 +5,15 @@ pub struct InputData {
 
 impl InputData {
     // handle content
-    pub fn push_input(mut self, input: char) {
+    pub fn push_input(&mut self, input: char) {
         self.input_field.push(input);
     }
 
-    pub fn pop_last_input(mut self) {
+    pub fn pop_last_input(&mut self) {
         self.input_field.remove(self.input_field.len() - 1);
+    }
+
+    pub fn get_string(&self) -> String {
+        self.input_field.iter().collect()
     }
 }

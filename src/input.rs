@@ -3,21 +3,31 @@
 
 use ratatui::crossterm::event::{self, Event, KeyCode};
 
-use crate::game::{Game, GameState};
+use crate::game::{Game, GameState, InputMode};
 
 pub fn handle_inputs(game: &mut Game) {
     if let Event::Key(key) = event::read().unwrap() {
-        match key.code {
-            KeyCode::Char('q') => {
-                game.state = GameState::Closing;
+        match game.mode {
+            InputMode::NormalMode => match key.code {
+                KeyCode::Char('e') => {
+                    game.mode = InputMode::EditMode;
+                }
+                KeyCode::Char('q') => {
+                    game.state = GameState::Closing;
+                }
+                KeyCode::Esc => {
+                    game.state = GameState::Closing;
+                }
+                KeyCode::Char('n') => {
+                    game.data.turn();
+                }
+                _ => ()
+            },
+            InputMode::EditMode => match key.code {
+                KeyCode::Char(c) => game.data.push_char(c),
+                KeyCode::Esc => game.mode = InputMode::NormalMode,
+                _ => ()
             }
-            KeyCode::Esc => {
-                game.state = GameState::Closing;
-            }
-            KeyCode::Char('n') => {
-                game.data.turn();
-            }
-            _ => ()
         }
     }
 }

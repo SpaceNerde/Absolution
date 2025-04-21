@@ -14,6 +14,18 @@ impl GameData {
     pub fn get_input_data(&self) -> InputData {
         self.input_data.clone()
     }
+    
+    pub fn push_char(&mut self, input: char) {
+        self.input_data.push_input(input);
+    }
+
+    pub fn pop_char(&mut self) {
+        self.input_data.pop_last_input();
+    }
+
+    pub fn get_string(&self) -> String {
+        self.input_data.get_string()
+    }
 
     // terminal data handling
     pub fn get_terminal_data(&self) -> TerminalData {
