@@ -1,7 +1,8 @@
-use super::terminal_data::TerminalData;
+use super::{input_data::InputData, terminal_data::TerminalData};
 
 #[derive(Debug, Clone, Default)]
 pub struct GameData {
+    input_data: InputData,
     terminal_data: TerminalData,
     turns: i32,
     metals: f32,
@@ -9,9 +10,14 @@ pub struct GameData {
 }
 
 impl GameData {
-    // terminal_data handling
-    pub fn get_terminal_data(self) -> TerminalData {
-        self.terminal_data
+    // input data handling
+    pub fn get_input_data(&self) -> InputData {
+        self.input_data.clone()
+    }
+
+    // terminal data handling
+    pub fn get_terminal_data(&self) -> TerminalData {
+        self.terminal_data.clone()
     }
 
     // turn handling

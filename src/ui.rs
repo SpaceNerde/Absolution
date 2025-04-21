@@ -5,9 +5,9 @@ use std::vec;
 use ratatui::layout::{Constraint, Direction, Layout};
 use ratatui::{layout, Frame};
 
+use crate::data::game_data::GameData;
 use crate::widgets::terminal_widget::TerminalWidget;
-use crate::{widgets::resource_widget::ResourceWidget};
-use crate::data::data::GameData;
+use crate::widgets::resource_widget::ResourceWidget;
 
 pub fn draw(frame: &mut Frame, data: GameData) {
     let layout = Layout::default()

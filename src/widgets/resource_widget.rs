@@ -3,7 +3,7 @@
 
 use ratatui::{buffer::Buffer, layout::{self, Constraint, Direction, Layout, Rect}, widgets::{Block, BorderType, Paragraph, Widget}};
 
-use crate::data::data::GameData;
+use crate::data::game_data::GameData;
 
 pub struct ResourceWidget {
     data: GameData

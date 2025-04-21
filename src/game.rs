@@ -1,7 +1,7 @@
 // Main game logic, from game state to
 // Main logic like research trees and others
 
-use crate::data::data::GameData;
+use crate::data::game_data::GameData;
 
 #[derive(Debug, Clone, Copy, Default)]
 pub enum GameState {
