@@ -27,6 +27,22 @@ impl GameData {
         self.input_data.get_string()
     }
 
+    pub fn move_cursor_left(&mut self) {
+        self.input_data.move_cursor_left();
+    }
+
+    pub fn move_cursor_right(&mut self) {
+        self.input_data.move_cursor_right();
+    }
+
+    pub fn move_cursor_start(&mut self) {
+        self.input_data.move_cursor_start();
+    }
+
+    pub fn get_cursor_position(&self) -> usize {
+        self.input_data.get_cursor_position()
+    }
+
     // terminal data handling
     pub fn get_terminal_data(&self) -> TerminalData {
         self.terminal_data.clone()

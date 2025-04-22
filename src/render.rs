@@ -19,11 +19,7 @@ impl Render
     pub fn new(game: Game) -> Self {
         // setup terminal
         // TODO: Add Error handling!
-        enable_raw_mode().unwrap();
-        let mut stdout = io::stdout();
-        execute!(stdout, EnterAlternateScreen, EnableMouseCapture).unwrap();
-        let backend = CrosstermBackend::new(stdout);
-        let mut terminal = Terminal::new(backend).unwrap();
+        let terminal = ratatui::init();
 
         Self { 
             game,

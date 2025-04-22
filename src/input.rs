@@ -26,6 +26,7 @@ pub fn handle_inputs(game: &mut Game) {
             InputMode::EditMode => match key.code {
                 KeyCode::Char(c) => game.data.push_char(c),
                 KeyCode::Esc => game.mode = InputMode::NormalMode,
+                KeyCode::Backspace => game.data.pop_char(),
                 _ => ()
             }
         }
