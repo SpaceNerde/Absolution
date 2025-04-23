@@ -3,9 +3,7 @@
 
 use game::{Game, GameState};
 use input::handle_inputs;
-use render::Render;
 
-pub mod render;
 pub mod game;
 pub mod input;
 pub mod ui;
@@ -14,15 +12,5 @@ pub mod data;
 
 fn main() {
     let mut game = Game::new();
-    loop {
-        Render::new(game.clone()).render();
-        handle_inputs(&mut game);
-        match game.state {
-            GameState::Closing => {
-                ratatui::restore();
-                break;
-            },
-            GameState::Running => ()
-        }
-    }
+    game.run();
 }
