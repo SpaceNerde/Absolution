@@ -9,6 +9,15 @@ pub struct GameData {
 }
 
 impl GameData {
+    pub fn new() -> Self {
+        Self { 
+            input_data: InputData::default(), 
+            terminal_data: TerminalData::default(), 
+            turns: 0, 
+            resource_data: ResourceData::new()
+        }
+    }
+
     // input data handling
     pub fn get_input_data(&self) -> InputData {
         self.input_data.clone()
@@ -54,6 +63,8 @@ impl GameData {
 
     pub fn turn(&mut self) {
         // give the player the resources on turn
+        self.resource_data.turn_change();
+
         self.turns += 1;
     }
 

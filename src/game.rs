@@ -38,7 +38,7 @@ impl Game {
         Self {
             mode: InputMode::default(),
             state: GameState::default(),
-            data: GameData::default(),
+            data: GameData::new(),
             terminal,
         }
     }
