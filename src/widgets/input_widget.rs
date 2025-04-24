@@ -1,19 +1,22 @@
 // Widget to display current input field
 
-use std::iter;
 
-use ratatui::{buffer::Buffer, layout::{Constraint, Direction, Layout, Rect}, style::Style, text::Span, widgets::{Block, BorderType, Paragraph, Widget, Wrap}};
+use ratatui::{
+    buffer::Buffer,
+    layout::{Constraint, Direction, Layout, Rect},
+    widgets::{Block, BorderType, Paragraph, Widget, Wrap},
+};
 
-use crate::data::{input_data::{self, InputData}, terminal_data::TerminalData};
+use crate::data::input_data::{InputData};
 
 pub struct InputWidget {
-    data: InputData 
+    data: InputData,
 }
 
 impl InputWidget {
     pub fn new(input_data_data: InputData) -> Self {
         Self {
-            data: input_data_data 
+            data: input_data_data,
         }
     }
 }
@@ -23,17 +26,15 @@ impl Widget for InputWidget {
         let interface = Block::bordered()
             .border_type(BorderType::Thick)
             .title("Input");
-        
+
         interface.clone().render(area, buf);
 
         let interface_area = interface.inner(area);
         let interface_layout = Layout::default()
             .direction(Direction::Vertical)
-            .constraints(vec![
-                Constraint::Length(1),
-            ])
+            .constraints(vec![Constraint::Length(1)])
             .split(interface_area);
-        
+
         let input_text = self.data.get_string();
         let input = Paragraph::new(input_text).wrap(Wrap { trim: true });
         input.render(interface_layout[0], buf);

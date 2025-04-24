@@ -1,6 +1,6 @@
 #[derive(Debug, Clone, Default)]
 pub struct TerminalData {
-    content: Vec<String>
+    content: Vec<String>,
 }
 
 impl TerminalData {

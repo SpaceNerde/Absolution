@@ -3,7 +3,7 @@
 
 use std::io::Stdout;
 
-use ratatui::{prelude::CrosstermBackend, Terminal};
+use ratatui::{Terminal, prelude::CrosstermBackend};
 
 use crate::{data::game_data::GameData, input::handle_inputs, ui};
 
@@ -18,7 +18,7 @@ pub enum GameState {
 pub enum InputMode {
     #[default]
     NormalMode,
-    EditMode
+    EditMode,
 }
 
 #[derive(Debug)]
@@ -26,9 +26,8 @@ pub struct Game {
     pub mode: InputMode,
     pub state: GameState,
     pub data: GameData,
-    terminal: Terminal<CrosstermBackend<Stdout>>
+    terminal: Terminal<CrosstermBackend<Stdout>>,
 }
-
 
 // Why the hell am i doing this again?
 // Ohh yeah cause ::new looks better then ::default() :P
@@ -36,17 +35,20 @@ impl Game {
     pub fn new() -> Self {
         let terminal = ratatui::init();
 
-        Self { 
+        Self {
             mode: InputMode::default(),
             state: GameState::default(),
             data: GameData::default(),
-            terminal
+            terminal,
         }
     }
 
     pub fn render(&mut self) {
         // TODO start on rendering
-        drop(self.terminal.draw(|frame| ui::draw(frame, self.data.clone())));
+        drop(
+            self.terminal
+                .draw(|frame| ui::draw(frame, self.data.clone())),
+        );
     }
 
     pub fn run(&mut self) {
@@ -57,8 +59,8 @@ impl Game {
                 GameState::Closing => {
                     ratatui::restore();
                     break;
-                },
-                GameState::Running => ()
+                }
+                GameState::Running => (),
             }
         }
     }

@@ -21,7 +21,7 @@ pub fn handle_inputs(game: &mut Game) {
                 KeyCode::Esc => {
                     game.state = GameState::Closing;
                 }
-                _ => ()
+                _ => (),
             },
             InputMode::EditMode => match key.code {
                 KeyCode::Char(c) => game.data.push_char(c),
@@ -29,8 +29,8 @@ pub fn handle_inputs(game: &mut Game) {
                 KeyCode::Backspace => game.data.pop_char(),
                 KeyCode::Left => game.data.move_cursor_left(),
                 KeyCode::Right => game.data.move_cursor_right(),
-                _ => ()
-            }
+                _ => (),
+            },
         }
     }
 }

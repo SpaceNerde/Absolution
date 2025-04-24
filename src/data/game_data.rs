@@ -14,7 +14,7 @@ impl GameData {
     pub fn get_input_data(&self) -> InputData {
         self.input_data.clone()
     }
-    
+
     pub fn push_char(&mut self, input: char) {
         self.input_data.push_input(input);
     }
@@ -56,7 +56,7 @@ impl GameData {
     pub fn turn(&mut self) {
         self.turns += 1;
     }
-    
+
     // population handling
     pub fn get_pop(&self) -> i32 {
         self.population

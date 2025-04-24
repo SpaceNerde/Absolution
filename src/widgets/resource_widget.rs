@@ -1,19 +1,21 @@
 // Widget to display all current resources and the changes
 // in resources in the next turn
 
-use ratatui::{buffer::Buffer, layout::{self, Constraint, Direction, Layout, Rect}, widgets::{Block, BorderType, Paragraph, Widget}};
+use ratatui::{
+    buffer::Buffer,
+    layout::{Constraint, Direction, Layout, Rect},
+    widgets::{Block, BorderType, Paragraph, Widget},
+};
 
 use crate::data::game_data::GameData;
 
 pub struct ResourceWidget {
-    data: GameData
+    data: GameData,
 }
 
 impl ResourceWidget {
     pub fn new(game_data: GameData) -> Self {
-        Self {
-            data: game_data
-        }
+        Self { data: game_data }
     }
 }
 
@@ -22,7 +24,7 @@ impl Widget for ResourceWidget {
         let interface = Block::bordered()
             .border_type(BorderType::Thick)
             .title("Resources");
-        
+
         interface.clone().render(area, buf);
 
         let interface_area = interface.inner(area);
@@ -31,7 +33,7 @@ impl Widget for ResourceWidget {
             .constraints(vec![
                 Constraint::Length(1),
                 Constraint::Length(1),
-                Constraint::Length(1)
+                Constraint::Length(1),
             ])
             .split(interface_area);
 
