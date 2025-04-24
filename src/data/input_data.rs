@@ -9,14 +9,16 @@ pub struct InputData {
 impl InputData {
     // handle content
     pub fn push_input(&mut self, input: char) {
-        self.input_field.push(input);
+        self.input_field.insert(self.cursor_position, input);
         self.move_cursor_right();
     }
 
     pub fn pop_last_input(&mut self) {
-        
-
-        self.input_field.pop();
+        if self.cursor_position == 0 {
+            return;
+        }
+        // remove char on cursor position
+        self.input_field.remove(self.cursor_position - 1);
         self.move_cursor_left();
     }
 

@@ -15,11 +15,11 @@ pub fn handle_inputs(game: &mut Game) {
                 KeyCode::Char('q') => {
                     game.state = GameState::Closing;
                 }
-                KeyCode::Esc => {
-                    game.state = GameState::Closing;
-                }
                 KeyCode::Char('n') => {
                     game.data.turn();
+                }
+                KeyCode::Esc => {
+                    game.state = GameState::Closing;
                 }
                 _ => ()
             },
@@ -27,6 +27,8 @@ pub fn handle_inputs(game: &mut Game) {
                 KeyCode::Char(c) => game.data.push_char(c),
                 KeyCode::Esc => game.mode = InputMode::NormalMode,
                 KeyCode::Backspace => game.data.pop_char(),
+                KeyCode::Left => game.data.move_cursor_left(),
+                KeyCode::Right => game.data.move_cursor_right(),
                 _ => ()
             }
         }
