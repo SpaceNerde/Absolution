@@ -53,8 +53,8 @@ impl Game {
 
     pub fn run(&mut self) {
         loop {
-            self.render();
             handle_inputs(self);
+            self.render();
             match self.state {
                 GameState::Closing => {
                     ratatui::restore();

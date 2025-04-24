@@ -1,12 +1,11 @@
-use super::{input_data::InputData, terminal_data::TerminalData};
+use super::{input_data::InputData, resource_data::ResourceData, terminal_data::TerminalData};
 
 #[derive(Debug, Clone, Default)]
 pub struct GameData {
     input_data: InputData,
     terminal_data: TerminalData,
     turns: i32,
-    metals: f32,
-    population: i32,
+    resource_data: ResourceData
 }
 
 impl GameData {
@@ -54,32 +53,46 @@ impl GameData {
     }
 
     pub fn turn(&mut self) {
+        // give the player the resources on turn
         self.turns += 1;
     }
 
     // population handling
     pub fn get_pop(&self) -> i32 {
-        self.population
+        self.resource_data.get_pop()
     }
 
     pub fn increase_pop(&mut self, pop: i32) {
-        self.population += pop;
+        self.resource_data.increase_pop(pop);
     }
 
     pub fn decrease_pop(&mut self, pop: i32) {
-        self.population -= pop;
+        self.resource_data.decrease_pop(pop);
     }
 
     // metals handling
     pub fn get_metals(&self) -> f32 {
-        self.metals
+        self.resource_data.get_metals()
     }
 
     pub fn increase_metals(&mut self, metals: f32) {
-        self.metals += metals;
+        self.resource_data.increase_metals(metals);
     }
 
     pub fn decrease_metals(&mut self, metals: f32) {
-        self.metals -= metals;
+        self.resource_data.decrease_metals(metals);
+    }
+
+    // mana handling
+    pub fn get_mana(&self) -> f32 {
+        self.resource_data.get_mana()
+    }
+
+    pub fn increase_mana(&mut self, mana: f32) {
+        self.resource_data.increase_mana(mana);
+    }
+
+    pub fn decrease_mana(&mut self, mana: f32) {
+        self.resource_data.decrease_mana(mana);
     }
 }

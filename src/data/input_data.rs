@@ -1,5 +1,3 @@
-use std::usize;
-
 #[derive(Debug, Clone, Default)]
 pub struct InputData {
     input_field: String,
