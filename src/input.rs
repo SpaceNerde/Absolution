@@ -3,7 +3,7 @@
 
 use ratatui::crossterm::event::{self, Event, KeyCode};
 
-use crate::game::{Game, GameState, InputMode};
+use crate::{command::handle_commands, game::{Game, GameState, InputMode}};
 
 pub fn handle_inputs(game: &mut Game) {
     if let Event::Key(key) = event::read().unwrap() {
@@ -29,6 +29,7 @@ pub fn handle_inputs(game: &mut Game) {
                 KeyCode::Backspace => game.data.pop_char(),
                 KeyCode::Left => game.data.move_cursor_left(),
                 KeyCode::Right => game.data.move_cursor_right(),
+                KeyCode::Enter => handle_commands(game),
                 _ => (),
             },
         }
