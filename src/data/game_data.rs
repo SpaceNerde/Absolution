@@ -56,6 +56,14 @@ impl GameData {
         self.terminal_data.clone()
     }
 
+    pub fn push_content(&mut self, content: String) {
+        self.terminal_data.push_content(content);
+    }
+
+    pub fn pop_last_content(&mut self) {
+        self.terminal_data.pop_last_content();
+    }
+
     // turn handling
     pub fn get_turn(&self) -> i32 {
         self.turns

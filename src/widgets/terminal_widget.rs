@@ -1,9 +1,7 @@
 // Widget to display terminal content
 
 use ratatui::{
-    buffer::Buffer,
-    layout::{Constraint, Direction, Layout, Rect},
-    widgets::{Block, BorderType, Paragraph, Widget},
+    buffer::Buffer, layout::{Constraint, Direction, Layout, Rect}, text::{Line, Span, Text}, widgets::{Block, BorderType, List, ListDirection, ListItem, Paragraph, Widget}
 };
 
 use crate::data::terminal_data::TerminalData;
@@ -32,12 +30,21 @@ impl Widget for TerminalWidget {
         let interface_layout = Layout::default()
             .direction(Direction::Vertical)
             .constraints(vec![
-                Constraint::Length(1),
                 Constraint::Fill(1),
-                Constraint::Length(1),
             ])
             .split(interface_area);
+        
+        let content: Vec<ListItem> = self.data.get_content()
+            .iter()
+            .enumerate()
+            .map(|(i, m)| {
+                let content = Text::from(m.to_string());
+                ListItem::new(content)
+            })
+            .collect();
 
-        Paragraph::new("INFO: This is a test!").render(interface_layout[1], buf);
+        List::new(content)
+            .direction(ListDirection::BottomToTop)
+            .render(interface_layout[0], buf);
     }
 }
