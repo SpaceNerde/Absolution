@@ -14,16 +14,8 @@ pub enum GameState {
     Running,
 }
 
-#[derive(Debug, Clone, Copy, Default)]
-pub enum InputMode {
-    #[default]
-    NormalMode,
-    EditMode,
-}
-
 #[derive(Debug)]
 pub struct Game {
-    pub mode: InputMode,
     pub state: GameState,
     pub data: GameData,
     terminal: Terminal<CrosstermBackend<Stdout>>,
@@ -36,7 +28,6 @@ impl Game {
         let terminal = ratatui::init();
 
         Self {
-            mode: InputMode::default(),
             state: GameState::default(),
             data: GameData::new(),
             terminal,
