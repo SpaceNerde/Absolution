@@ -34,15 +34,21 @@ impl Widget for ResourceWidget {
                 Constraint::Length(1),
                 Constraint::Length(1),
                 Constraint::Length(1),
+                Constraint::Length(1),
+                Constraint::Length(1),
             ])
             .split(interface_area);
 
         let turn = format!("Turn: {}", self.data.get_turn());
         let population = format!("Population: {}", self.data.get_pop());
         let metals = format!("Metals: {}", self.data.get_metals());
+        let mana = format!("Mana: {}", self.data.get_mana());
+        let founds = format!("Founds: {}", self.data.get_founds());
 
         Paragraph::new(turn).render(interface_layout[0], buf);
         Paragraph::new(population).render(interface_layout[1], buf);
         Paragraph::new(metals).render(interface_layout[2], buf);
+        Paragraph::new(mana).render(interface_layout[3], buf);
+        Paragraph::new(founds).render(interface_layout[4], buf);
     }
 }

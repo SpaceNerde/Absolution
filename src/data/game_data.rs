@@ -114,4 +114,17 @@ impl GameData {
     pub fn decrease_mana(&mut self, mana: f32) {
         self.resource_data.decrease_mana(mana);
     }
+
+    // founds handling
+    pub fn get_founds(&self) -> f32 {
+        self.resource_data.get_founds()
+    }
+
+    pub fn increase_founds(&mut self, founds: f32) {
+        self.resource_data.increase_founds(founds);
+    }
+
+    pub fn decrease_founds(&mut self, founds: f32) {
+        self.resource_data.decrease_founds(founds);
+    }
 }

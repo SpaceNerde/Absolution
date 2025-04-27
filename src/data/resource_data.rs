@@ -3,9 +3,11 @@ pub struct ResourceData {
     metals: f32,
     population: i32,
     mana: f32,
+    founds: f32,
     metal_change: f32,
     population_change: i32,
     mana_change: f32,
+    found_change: f32,
 }
 
 impl ResourceData {
@@ -16,7 +18,9 @@ impl ResourceData {
             mana: 0., 
             metal_change: 1., 
             population_change: 1, 
-            mana_change: 1.
+            mana_change: 1.,
+            founds: 0.,
+            found_change: 1.0,
         } 
     }
 
@@ -71,9 +75,27 @@ impl ResourceData {
         self.mana = mana;
     }
 
+    // founds handling
+    pub fn get_founds(&self) -> f32 {
+        self.founds
+    }
+
+    pub fn increase_founds(&mut self, founds: f32) {
+        self.founds += founds;
+    }
+
+    pub fn decrease_founds(&mut self, founds: f32) {
+        self.founds -= founds;
+    }
+
+    pub fn set_founds_change(&mut self, founds: f32) {
+        self.founds = founds;
+    }
+
     pub fn turn_change(&mut self) {
         self.increase_mana(self.mana_change);
         self.increase_metals(self.metal_change);
         self.increase_pop(self.population_change);
+        self.increase_founds(self.found_change);
     }
 }
