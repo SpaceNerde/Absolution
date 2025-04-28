@@ -9,6 +9,7 @@ pub mod input;
 pub mod ui;
 pub mod widgets;
 pub mod command;
+pub mod systems;
 
 fn main() {
     let mut game = Game::new();
