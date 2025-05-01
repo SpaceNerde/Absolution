@@ -5,7 +5,7 @@ use std::io::Stdout;
 
 use ratatui::{Terminal, prelude::CrosstermBackend};
 
-use crate::{data::game_data::GameData, input::handle_inputs, ui};
+use crate::{data::game_data::GameData, input::handle_inputs, systems::game_system::GameSystem, ui};
 
 #[derive(Debug, Clone, Copy, Default)]
 pub enum GameState {
@@ -18,6 +18,7 @@ pub enum GameState {
 pub struct Game {
     pub state: GameState,
     pub data: GameData,
+    pub system: GameSystem,
     terminal: Terminal<CrosstermBackend<Stdout>>,
 }
 
@@ -30,6 +31,7 @@ impl Game {
         Self {
             state: GameState::default(),
             data: GameData::new(),
+            system: GameSystem::new(),
             terminal,
         }
     }

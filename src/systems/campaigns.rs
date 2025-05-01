@@ -1,30 +1,89 @@
 // Campaigns are the main part of the early stage of the game
 // Will provide boostes for the turn income of resources
 
-#[derive(Debug, Clone, Copy, Default)]
-pub struct MiningCampaign {
-    progress: f32,
-    effect: f32,
-    level: i32,
-    running: bool,
+use core::f32;
+
+
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
+pub enum CampaignStatus {
+    Running,
+    Finished,
+    #[default]
+    Paused
 }
 
-impl MiningCampaign {
+#[derive(Debug, Clone, Copy, Default)]
+pub enum CampaignKind {
+    #[default]
+    None,
+    MiningCampaign,
+}
+
+#[derive(Debug, Clone, Copy, Default)]
+pub struct Campaign {
+    effect: f32,
+    mining_progress: f32,
+    mining_level: i32,
+    running: CampaignStatus,
+    kind: CampaignKind,
+}
+
+impl Campaign {
     pub fn new() -> Self {
         Self {
-            progress: 0., 
             effect: 0.25, 
-            level: 1,
-            running: false, 
+            mining_progress: 0., 
+            mining_level: 1,
+            running: CampaignStatus::Paused,
+            kind: CampaignKind::MiningCampaign, 
         }
     }
     
-    pub fn run(&mut self) {
-        self.running = true;
+    pub fn start_new(&mut self, kind: CampaignKind) {
+        match kind {
+            CampaignKind::None => (),
+            CampaignKind::MiningCampaign => self.kind = CampaignKind::MiningCampaign,
+        }
+
+        self.running = CampaignStatus::Running;
+    }
+    
+    pub fn get_effect(&self) -> f32 {
+        self.effect
     }
 
     // called on each turn this campaign is running
-    pub fn update(&mut self, population: i32) {
-        self.progress = (population / 1_000_000_000 / ((self.level as f32) / 0.2) as i32) as f32;
+    // Returns CampaignStatus Finished when the Campaign Progress reaches 100%
+    // Campaign Status will be handled in the game loop 
+    // TODO! Go into more detail
+    pub fn update(&mut self, population: i32) -> CampaignStatus {
+        match self.check_status() {
+            CampaignStatus::Running => (),
+            CampaignStatus::Finished => return CampaignStatus::Finished,
+            CampaignStatus::Paused => return CampaignStatus::Paused,
+        }
+        
+        match self.kind {
+            CampaignKind::None => (),
+            CampaignKind::MiningCampaign => {
+                self.mining_progress += (population / 100 / ((self.mining_level as f32) / 0.2) as i32) as f32;
+            }
+        }
+
+        CampaignStatus::Running
+    }
+    
+    fn check_status(&mut self) -> CampaignStatus {
+        if self.running == CampaignStatus::Paused {
+            return CampaignStatus::Paused
+        }
+
+        if self.mining_progress >= 100. {
+            self.mining_progress = 0.;
+
+            return CampaignStatus::Finished;
+        }
+        
+        CampaignStatus::Running
     }
 }

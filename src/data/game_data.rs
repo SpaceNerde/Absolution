@@ -102,6 +102,14 @@ impl GameData {
         self.resource_data.decrease_metals(metals);
     }
 
+    pub fn set_metals_change(&mut self, metals: f32) {
+        self.resource_data.set_metals_change(metals);
+    }
+
+    pub fn get_metals_change(&self) -> f32 {
+        self.resource_data.get_metals_change()
+    }
+
     // mana handling
     pub fn get_mana(&self) -> f32 {
         self.resource_data.get_mana()

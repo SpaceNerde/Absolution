@@ -14,7 +14,7 @@ impl ResourceData {
     pub fn new() -> Self {
         Self { 
             metals: 0., 
-            population: 0,
+            population: 8_000,
             mana: 0., 
             metal_change: 1., 
             population_change: 1, 
@@ -38,7 +38,7 @@ impl ResourceData {
     }
 
     pub fn set_pop_change(&mut self, pop: i32) {
-        self.population = pop;
+        self.population_change = pop;
     }
 
     // metals handling
@@ -55,7 +55,11 @@ impl ResourceData {
     }
 
     pub fn set_metals_change(&mut self, metals: f32) {
-        self.metals = metals;
+        self.metal_change = metals;
+    }
+
+    pub fn get_metals_change(&self) -> f32 {
+        self.metal_change
     }
 
     // mana handling
@@ -72,7 +76,7 @@ impl ResourceData {
     }
 
     pub fn set_mana_change(&mut self, mana: f32) {
-        self.mana = mana;
+        self.mana_change = mana;
     }
 
     // founds handling
@@ -89,7 +93,7 @@ impl ResourceData {
     }
 
     pub fn set_founds_change(&mut self, founds: f32) {
-        self.founds = founds;
+        self.found_change = founds;
     }
 
     pub fn turn_change(&mut self) {

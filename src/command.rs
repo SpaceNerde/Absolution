@@ -1,7 +1,7 @@
 // Command Handler to sanitize inputs and handle 
 // the apropriate responce to those inputs
 
-use crate::game::{Game, GameState};
+use crate::{game::{Game, GameState}, systems::campaigns::CampaignKind};
 
 const HELP_MESSAGE: &str = "
     Commands:\n
@@ -19,8 +19,12 @@ pub fn handle_commands(game: &mut Game) {
     // TODO: Swap to nom for command parsing
     match prep_command.as_str() {
         "exit" => game.state = GameState::Closing,
-        "turn" => game.data.turn(),
+        "turn" => {
+            game.system.update(&mut game.data);
+            game.data.turn()
+        },
         "help" => game.data.push_content(HELP_MESSAGE.to_string()),
+        "start campaign(mining)" => game.system.campaign.start_new(CampaignKind::MiningCampaign),
         _ => ()
     }
 }

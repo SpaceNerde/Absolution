@@ -40,7 +40,7 @@ impl Widget for ResourceWidget {
             .split(interface_area);
 
         let turn = format!("Turn: {}", self.data.get_turn());
-        let population = format!("Population: {}", self.data.get_pop());
+        let population = format!("Population: {}B", self.data.get_pop() / 1000);
         let metals = format!("Metals: {}", self.data.get_metals());
         let mana = format!("Mana: {}", self.data.get_mana());
         let founds = format!("Founds: {}", self.data.get_founds());
