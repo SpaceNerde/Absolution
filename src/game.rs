@@ -5,7 +5,7 @@ use std::io::Stdout;
 
 use ratatui::{Terminal, prelude::CrosstermBackend};
 
-use crate::{data::game_data::GameData, input::handle_inputs, systems::game_system::GameSystem, ui};
+use crate::{command::{CommandRegistry, TestCommand}, data::game_data::GameData, input::handle_inputs, systems::game_system::GameSystem, ui};
 
 #[derive(Debug, Clone, Copy, Default)]
 pub enum GameState {
@@ -14,24 +14,27 @@ pub enum GameState {
     Running,
 }
 
-#[derive(Debug)]
 pub struct Game {
     pub state: GameState,
     pub data: GameData,
     pub system: GameSystem,
+    pub command_registy: CommandRegistry,
     terminal: Terminal<CrosstermBackend<Stdout>>,
 }
 
-// Why the hell am i doing this again?
-// Ohh yeah cause ::new looks better then ::default() :P
 impl Game {
     pub fn new() -> Self {
         let terminal = ratatui::init();
+        
+        let mut cmd_reg = CommandRegistry::new();
+
+        cmd_reg.register(Box::new(TestCommand));
 
         Self {
             state: GameState::default(),
             data: GameData::new(),
             system: GameSystem::new(),
+            command_registy: cmd_reg,
             terminal,
         }
     }
