@@ -12,10 +12,10 @@ pub fn handle_inputs(game: &mut Game) {
             KeyCode::Backspace => game.data.pop_char(),
             KeyCode::Left => game.data.move_cursor_left(),
             KeyCode::Right => game.data.move_cursor_right(),
-            //handle_commands(game),
             KeyCode::Enter => {
+                //handle_commands(game);
                 let input = game.data.get_string();
-                game.command_registy.handle_commands(input)
+                game.command_registy.handle_commands(input, &mut game.data, &mut game.system, &mut game.state)
             },
             _ => (),
         }

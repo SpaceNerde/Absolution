@@ -1,7 +1,7 @@
 // Command Handler to sanitize inputs and handle 
 // the apropriate responce to those inputs
 
-use crate::{game::{Game, GameState}, systems::campaigns::CampaignKind};
+use crate::{data::game_data::GameData, game::{Game, GameState}, systems::{campaigns::CampaignKind, game_system::GameSystem}};
 
 const HELP_MESSAGE: &str = "
     Commands:\n
@@ -36,7 +36,7 @@ pub fn handle_commands(game: &mut Game) {
 pub trait Command {
     // not using a Vec cause i think clone would be more performance intensive... maybe
     fn matches(&self, input: &[&str]) -> bool;
-    fn execute(&self, args: &[&str]);
+    fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState);
 }
 
 // Register Commands and match input with the whole registry to
@@ -58,18 +58,58 @@ impl CommandRegistry {
     }
     
     // senitice and compare input to registerd commands and execute matches
-    pub fn handle_commands(&self, input: String) {
+    // idk i dont like to parse data, system and state all sepparte have to find something
+    // better...., why am i even having the CommandRegistry inside the game struct?
+    // TODO!
+    pub fn handle_commands(&self, input: String, data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
         // TODO! handle invalid inputs
-        let command_tokens: Vec<&str> = input.trim().split_whitespace().collect::<_>();
-
+        let command_tokens: Vec<&str> = input.split_whitespace().collect::<_>();
+        
         for cmd in &self.commands {
             if cmd.matches(&command_tokens) {
-                cmd.execute(&command_tokens);
+                cmd.execute(&command_tokens, data, system, state);
             }
         }
     }
 }
 
+pub struct TurnCommand;
+
+impl Command for TurnCommand {
+    fn matches(&self, input: &[&str]) -> bool {
+        input.len() == 1 && input[0] == "turn"
+    }
+
+    fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
+        data.turn();
+    }
+}
+
+pub struct ExitCommand;
+
+impl Command for ExitCommand {
+    fn matches(&self, input: &[&str]) -> bool {
+        input.len() == 1 && input[0] == "exit"
+    }
+
+    fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
+        *state = GameState::Closing;
+    }
+}
+
+pub struct HelpCommand;
+
+impl Command for HelpCommand {
+    fn matches(&self, input: &[&str]) -> bool {
+        input.len() == 1 && input[0] == "help"
+    }
+
+    fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
+        data.push_content(HELP_MESSAGE.to_string());
+    }
+}
+
+/*
 // simple command to test concept
 pub struct TestCommand;
 
@@ -80,7 +120,8 @@ impl Command for TestCommand {
         input.len() == 1 && input[0] == "test"
     }
 
-    fn execute(&self, args: &[&str]) {
-
+    fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem) {
     }
+
 }
+*/

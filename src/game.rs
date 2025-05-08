@@ -5,7 +5,7 @@ use std::io::Stdout;
 
 use ratatui::{Terminal, prelude::CrosstermBackend};
 
-use crate::{command::{CommandRegistry, TestCommand}, data::game_data::GameData, input::handle_inputs, systems::game_system::GameSystem, ui};
+use crate::{command::{CommandRegistry, ExitCommand, HelpCommand, TurnCommand}, data::game_data::GameData, input::handle_inputs, systems::game_system::GameSystem, ui};
 
 #[derive(Debug, Clone, Copy, Default)]
 pub enum GameState {
@@ -28,7 +28,9 @@ impl Game {
         
         let mut cmd_reg = CommandRegistry::new();
 
-        cmd_reg.register(Box::new(TestCommand));
+        cmd_reg.register(Box::new(ExitCommand));
+        cmd_reg.register(Box::new(TurnCommand));
+        cmd_reg.register(Box::new(HelpCommand));
 
         Self {
             state: GameState::default(),

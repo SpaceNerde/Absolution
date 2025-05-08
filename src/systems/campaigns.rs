@@ -3,6 +3,8 @@
 
 use core::f32;
 
+// TODO! rewrite using trait
+// TODO! increase level when finishing campaign
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub enum CampaignStatus {
