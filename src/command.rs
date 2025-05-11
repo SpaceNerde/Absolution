@@ -39,6 +39,9 @@ pub trait Command {
     fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState);
 }
 
+// maybe i will impl a SubCommand trait at some point but not now i think 
+// pub trait SubCommand {}
+
 // Register Commands and match input with the whole registry to
 // get the right command and execute it
 #[derive(Default)]
@@ -82,6 +85,7 @@ impl Command for TurnCommand {
 
     fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
         data.turn();
+        system.update(data);
     }
 }
 
@@ -106,6 +110,28 @@ impl Command for HelpCommand {
 
     fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
         data.push_content(HELP_MESSAGE.to_string());
+    }
+}
+
+pub struct StartCommand;
+
+impl Command for StartCommand {
+    fn matches(&self, input: &[&str]) -> bool {
+        input.len() == 3 && input[0] == "start"
+    }
+
+    fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
+        match args[1] {
+            "campaign" => {
+                match args[2] {
+                    "mining" => system.start_new(CampaignKind::MiningCampaign),
+                    "test" => (), // just here so nvim wont kill me :P TODO! remove asap
+                    _ => ()
+                }
+            }
+            // TODO! need to impl some kind of handling for those cases... meh later :P
+            _ => () // no match for start sub command
+        }
     }
 }
 

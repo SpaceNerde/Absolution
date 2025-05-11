@@ -2,7 +2,7 @@
 
 use crate::data::game_data::GameData;
 
-use super::campaigns::{Campaign, CampaignStatus};
+use super::campaigns::{Campaign, CampaignKind, CampaignStatus};
 
 #[derive(Default, Debug, Clone, Copy)]
 pub struct GameSystem {
@@ -14,6 +14,10 @@ impl GameSystem {
         Self { 
             campaign: Campaign::new(), 
         }
+    }
+
+    pub fn start_new(&mut self, kind: CampaignKind) {
+        self.campaign.start_new(kind);
     }
 
     pub fn update(&mut self, data: &mut GameData) {
