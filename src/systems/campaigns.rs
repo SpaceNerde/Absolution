@@ -82,6 +82,7 @@ impl Campaign {
 
         if self.mining_progress >= 100. {
             self.mining_progress = 0.;
+            self.mining_level += 1;
 
             return CampaignStatus::Finished;
         }
