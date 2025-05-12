@@ -37,7 +37,7 @@ impl Campaign {
             mining_progress: 0., 
             mining_level: 1,
             running: CampaignStatus::Paused,
-            kind: CampaignKind::MiningCampaign, 
+            kind: CampaignKind::default(), 
         }
     }
     
@@ -87,5 +87,19 @@ impl Campaign {
         }
         
         CampaignStatus::Running
+    }
+
+    pub fn get_current_campaign(&self) -> CampaignKind {
+        self.kind
+    }
+
+    // TODO! will rewrite the campaign shit anyways so i can let this stay like this for now
+    // change later so! pls dont forget :,)
+    pub fn get_progress(&self) -> f32 {
+        self.mining_progress
+    }
+
+    pub fn get_level(&self) -> i32 {
+        self.mining_level
     }
 }

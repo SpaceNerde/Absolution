@@ -46,7 +46,7 @@ impl Game {
         // TODO start on rendering
         drop(
             self.terminal
-                .draw(|frame| ui::draw(frame, self.data.clone())),
+                .draw(|frame| ui::draw(frame, self.data.clone(), self.system)),
         );
     }
 
