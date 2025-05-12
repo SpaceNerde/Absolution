@@ -42,4 +42,9 @@ impl InputData {
     pub fn get_cursor_position(&self) -> usize {
         self.cursor_position
     }
+
+    pub fn clear_field(&mut self) {
+        self.input_field = String::new();
+        self.cursor_position = 0;
+    }
 }

@@ -50,6 +50,10 @@ impl GameData {
     pub fn get_cursor_position(&self) -> usize {
         self.input_data.get_cursor_position()
     }
+    
+    pub fn clear_field(&mut self) {
+        self.input_data.clear_field();
+    }
 
     // terminal data handling
     pub fn get_terminal_data(&self) -> TerminalData {

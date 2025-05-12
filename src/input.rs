@@ -15,7 +15,10 @@ pub fn handle_inputs(game: &mut Game) {
             KeyCode::Enter => {
                 //handle_commands(game);
                 let input = game.data.get_string();
-                game.command_registy.handle_commands(input, &mut game.data, &mut game.system, &mut game.state)
+                game.command_registy.handle_commands(input, &mut game.data, &mut game.system, &mut game.state);
+
+                // clear input field
+                game.data.clear_field();
             },
             _ => (),
         }
