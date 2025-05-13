@@ -41,10 +41,11 @@ impl Widget for TerminalWidget {
                 let content = Text::from(m.to_string());
                 ListItem::new(content)
             })
+            .rev()
             .collect();
 
         List::new(content)
-            .direction(ListDirection::BottomToTop)
+            .direction(ListDirection::TopToBottom)
             .render(interface_layout[0], buf);
     }
 }

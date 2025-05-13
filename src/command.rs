@@ -86,6 +86,8 @@ impl Command for TurnCommand {
     fn execute(&self, args: &[&str], data: &mut GameData, system: &mut GameSystem, state: &mut GameState) {
         data.turn();
         system.update(data);
+
+        data.push_content("Turn has passed.".to_string());
     }
 }
 
@@ -124,7 +126,10 @@ impl Command for StartCommand {
         match args[1] {
             "campaign" => {
                 match args[2] {
-                    "mining" => system.start_new(CampaignKind::MiningCampaign),
+                    "mining" => {
+                        system.start_new(CampaignKind::MiningCampaign);
+                        data.push_content("Started Mining Campaign.".to_string());
+                    },
                     "test" => (), // just here so nvim wont kill me :P TODO! remove asap
                     _ => ()
                 }
